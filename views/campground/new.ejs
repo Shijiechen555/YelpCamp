@@ -1,0 +1,73 @@
+<% layout('layout/boilerplate') %>
+
+
+    <div class="row">
+        <h1 class="text-center">New Campground</h1>
+        <div class="col-6 offset-md-3">
+            <div class="card shadow">
+                <div class="card-body">
+                    <form action="/campground" method='post' novalidate class="validatedForm"
+                        enctype="multipart/form-data">
+                        <!-- enctype="multipart/form-data" shows that when we post an action to an target, the default of -->
+                        <!--enctype is setted to be urlencoded, if we want to uploaded it by file, we need to specified type is multipart-form-data -->
+                        <div class="mb-3">
+                            <label class="form-label" for="title">Title:</label>
+                            <input class="form-control" type="text" name="campground[title]" id="title" required>
+                            <div class="valid-feedback">looks good!</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="location">Location:</label>
+                            <input class="form-control" type="text" name="campground[location]" id="location" required>
+                            <div class="valid-feedback">looks good!</div>
+                        </div>
+                        <!-- <div class="mb-3">
+                    <label class="form-label" for="image">Image URL:</label>
+                    <input class="form-control" type="text" name="campground[image]" id="image" required>
+                    <div class="valid-feedback">looks good!</div>
+                </div> -->
+                        <label for="image" class="form-label">Please choose your pictures:</label>
+                        <input type="file" class="form-control" name="image" id='image' multiple>
+                        <!-- the name attribute is very important becuase it reflects to the fieldname of multer -->
+
+                        <div class="mb-3">
+                            <label class="form-label" for="price">Price:</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="price">$</span>
+                                <input type="text" class="form-control" placeholder="0.00" aria-label="Username"
+                                    aria-describedby="price" name="campground[price]" required>
+                                <div class="valid-feedback">looks good!</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="description">Description:</label>
+                            <textarea class="form-control" type="" name="campground[description]" id="description"
+                                required></textarea>
+                            <div class="valid-feedback">looks good!</div>
+                        </div>
+                        <button class="btn btn-success mb-3">Add campground</button>
+                    </form>
+                    <a href="/campground">back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.validatedForm')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
