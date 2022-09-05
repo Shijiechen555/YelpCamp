@@ -204,7 +204,8 @@ app.use((err, req, res, next) => {
 //     await camp.save();
 //     res.send(camp);
 // })
+const port = process.env.PORT || 9000;
 
-app.listen(9000, () => {
-    console.log("serving on 9000");
+app.listen(port, () => {
+    console.log(`serving on ${port}`);
 })
